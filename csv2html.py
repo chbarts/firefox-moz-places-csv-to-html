@@ -32,7 +32,7 @@ parser = argparse.ArgumentParser(description='Convert A Firefox moz_places Table
 
 parser.add_argument('-i', '--input', metavar='INFILE', type=str, nargs=1, default='', help='Specify INFILE as RSS input file, defaults to stdin')
 parser.add_argument('-o', '--output', metavar='OUTFILE', type=str, nargs=1, default='', help='Specify OUTFILE as HTML output file, defaults to stdout')
-parser.add_argument('-t', '--title', metavar='TITLE', type=str, nargs=1, default='Firefox Places Dump', help='The title of the HTML file')
+parser.add_argument('-t', '--title', metavar='TITLE', type=str, default='Firefox Places Dump', help='The title of the HTML file')
 
 args = parser.parse_args()
 
