@@ -7,9 +7,10 @@ import html
 import time
 import argparse
 
-def csv2html(inf, outf, title):
-    outf.write("<html><head><meta charset=\"utf-8\"><title>{}</title></head><body>\n".format(html.escape(title)))
-    outf.write("<ol>\n")
+def csv2html(inf, outf, dtitle):
+    outf.write("<!DOCTYPE html>\n")
+    outf.write("<html><head><meta charset=\"utf-8\"><title>{}</title></head><body>\n".format(html.escape(dtitle)))
+    outf.write("<ul>\n")
     reader = csv.DictReader(inf)
     for row in reader:
         if len(row['url']) == 0:
@@ -21,10 +22,10 @@ def csv2html(inf, outf, title):
             lvd = int(row['last_visit_date']) / 1000000
             ltime = time.localtime(lvd)
             stime = html.escape(time.strftime("%A, %B %d, %Y %T %z", ltime))
-            outf.write("<li>{} &mdash; <a href=\"{}\">{}</a></li>\n".format(stime, row['url'], html.escape(title)))
+            outf.write("<li>{} &mdash; <a href=\"{}\">{}</a></li>\n".format(stime, html.escape(row['url'], quote=True), html.escape(title)))
         else:
-            outf.write("<li><a href=\"{}\">{}</a></li>\n".format(row['url'], html.escape(title)))
-    outf.write("</ol>\n")
+            outf.write("<li><a href=\"{}\">{}</a></li>\n".format(html.escape(row['url'], quote=True), html.escape(title)))
+    outf.write("</ul>\n")
     outf.write("</body></html>\n")
 
 parser = argparse.ArgumentParser(description='Convert A Firefox moz_places Table CSV Dump to HTML')
